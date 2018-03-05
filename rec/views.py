@@ -4,11 +4,20 @@ from enum import Enum
 # Create your views here.
 
 
-class STATUS(Enum):
+class State(Enum):
     # TODO Decide if this has to be moved to utils package
-    READY = 'READY'
-    IN_PROGRESS = 'Training in Progress'
-    COMPLETED = 'Training Completed'
+    READY = 1
+    IN_PROGRESS = 2
+    COMPLETED = 3
+
+
+state_dict = {
+    State.READY: 'READY',
+    State.IN_PROGRESS: 'Training in Progress',
+    State.COMPLETED: 'Training Completed'
+}
+
+state = State.READY
 
 
 def init(request):
@@ -17,8 +26,12 @@ def init(request):
 
 
 def status(request):
-    return HttpResponse(status=200)
-    # return render(request, , status=204)
+    if request.method == 'GET':
+        response = HttpResponse(state_dict[state], content_type="text/plain")
+        response.status_code = 200
+        return response
+    else:
+        return HttpResponse(status=405)
 
 
 def accuracy(request):
