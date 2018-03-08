@@ -3,6 +3,7 @@ from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import RMSprop
+import numpy as np
 from configparser import ConfigParser
 import os
 
@@ -10,10 +11,11 @@ MNIST = 'mnist'
 LEARNING_RATE = 'learning_rate'
 BATCH_SIZE = 'batch_size'
 EPOCHS = 'epochs'
-#TODO Add Logging
 
-class deepLearn:
 
+# TODO Add Logging
+
+class DeepLearn:
     def __init__(self):
         self.config = ConfigParser()
         self.config.read(
@@ -46,7 +48,7 @@ class deepLearn:
         self.model.add(Dense(300, activation='relu'))
         self.model.add(Dropout(0.3))
         self.model.add(Dense(10, activation='softmax'))
-        #TODO Refactor Learning Rate into Appconfig
+        # TODO Refactor Learning Rate into Appconfig
         learning_rate = self.config.get(MNIST, LEARNING_RATE)
         self.model.compile(loss='categorical_crossentropy',
                            optimizer=RMSprop(lr=learning_rate),
@@ -67,7 +69,15 @@ class deepLearn:
     def get_accuracy(self):
         return self.score[1]
 
-    def test_model(self, index):
-        #TODO Add Implementation for Testing the model with one model input
-        pass
-        # if index
+    def predict(self, idx):
+        # TODO Refactor limits into Appconfig
+        if idx >= 70000:
+            # TODO Refactor into logging
+            print("Passed Index Out of Range")
+        # TODO Refactor limits into Appconfig
+        elif 0 <= idx < 60000:
+            return self.model.predict(np.array([self.x_train[idx]])).argmax()
+        # TODO Refactor limits into Appconfig
+        elif 60000 <= idx < 70000:
+            idx %= self.x_train.shape[0]
+            return self.model.predict(np.array([self.x_test[idx]])).argmax()
