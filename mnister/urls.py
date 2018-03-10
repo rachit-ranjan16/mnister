@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rec import views
+from rec.views import MnistView
 
 urlpatterns = [
-    path('rec/status', views.status, name='status'),
+    path(r'rec/status', MnistView.as_view(), name='status'),
 ]
