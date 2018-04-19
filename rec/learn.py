@@ -7,6 +7,7 @@ import numpy as np
 from configparser import ConfigParser
 import os
 from celery import shared_task
+import time
 
 MNIST = 'mnist'
 LEARNING_RATE = 'learning_rate'
@@ -32,9 +33,14 @@ class DeepLearn:
     # Asynchronous Driver Method
     @shared_task
     def init_deep_learning(self):
-        self.process_data()
-        self.create_model()
-        self.train_model()
+        # TODO Uncomment all
+        # self.process_data()
+        # self.create_model()
+        # self.train_model()
+        # TODO Remove test code
+        print("Going to sleep for 10s")
+        time.sleep(10)
+        print("Woke up from Sleep")
 
     def process_data(self):
         self.x_train = self.x_train.reshape(len(self.x_train), 28 * 28)

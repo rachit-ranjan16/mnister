@@ -13,16 +13,6 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   #config.vm.box = "ubuntu/xenial64"
-  config.vm.define :Db do |db|
-	db.vm.box = "ubuntu/xenial64"
-	db.vm.provision :shell, path: "db_bootstrap.sh"
-	db.vm.synced_folder "vagrant_data", "/vagrant_data"
-	db.vm.network :private_network, ip: "172.16.8.7"
-	db.vm.hostname = "db"
-	db.vm.provider "virtualbox" do |m|
-		m.memory = "512"
-	end
-  end
   config.vm.define :Nginx do |nginx|
 	nginx.vm.box = "ubuntu/xenial64"
 	nginx.vm.provision :shell, path: "nginx_bootstrap.sh"
@@ -36,12 +26,13 @@ Vagrant.configure("2") do |config|
   end
   config.vm.define :Django do |django|
 	django.vm.box = "ubuntu/xenial64"
-  django.vm.synced_folder "vagrant_data", "/vagrant_data"
+    django.vm.synced_folder "vagrant_data", "/vagrant_data"
+    django.vm.synced_folder "../../mnister", "/mnister"
 	django.vm.provision :shell, path: "django_bootstrap.sh"
 	django.vm.network :private_network, ip: "172.16.8.6"
 	django.vm.hostname = "django"
 	django.vm.provider "virtualbox" do |m|
-		m.memory = "512"
+		m.memory = "1024"
 	end
   end
   #config.ssh.username = "ubuntu"

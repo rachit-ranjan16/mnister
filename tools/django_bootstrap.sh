@@ -30,14 +30,10 @@ source django/bin/activate
 echo "----------------------------"
 echo "Install and Configure RabbitMQ"
 echo "----------------------------"
-sudo apt-get -y -q rabbitmq-server
-sudo rabbitmqctl add_user mnister mnisterpass
-sudo rabbitmqctl add_vhost mnisterhost
-sudo rabbitmqctl set_permissions -p mnisterhost mnister ".*" ".*" ".*"
-echo "----------------------------"
-echo "Install Celery"
-echo "----------------------------"
-pip install -U "celery[redis]"
+sudo apt-get -y -q install rabbitmq-server
+#sudo rabbitmqctl add_user mnister mnisterpass
+#sudo rabbitmqctl add_vhost mnisterhost
+#sudo rabbitmqctl set_permissions -p mnisterhost mnister ".*" ".*" ".*"
 echo "----------------------------"
 echo "Install Additional Dependencies"
 echo "----------------------------"
