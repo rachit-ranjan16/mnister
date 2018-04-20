@@ -15,10 +15,6 @@ echo "Install pip"
 echo "----------------------------"
 sudo apt-get -y -q install python3-pip
 echo "----------------------------"
-echo "Install MySql Client"
-echo "----------------------------"
-sudo apt-get -y -q install mysql-client
-echo "----------------------------"
 echo "Install pyenv"
 echo "----------------------------"
 sudo apt-get -y -q install python3-venv
@@ -31,11 +27,13 @@ echo "----------------------------"
 echo "Install and Configure RabbitMQ"
 echo "----------------------------"
 sudo apt-get -y -q install rabbitmq-server
-#sudo rabbitmqctl add_user mnister mnisterpass
-#sudo rabbitmqctl add_vhost mnisterhost
-#sudo rabbitmqctl set_permissions -p mnisterhost mnister ".*" ".*" ".*"
 echo "----------------------------"
 echo "Install Additional Dependencies"
 echo "----------------------------"
 pip install -r /vagrant_data/requirements.txt
 sudo updatedb
+# TODO Remove This
+echo "----------------------------"
+echo "Install Nginx"
+echo "----------------------------"
+sudo apt-get -y -q install nginx

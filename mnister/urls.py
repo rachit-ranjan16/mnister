@@ -18,6 +18,6 @@ from django.urls import include, path
 from rec.views import MnistStatusView
 
 urlpatterns = [
-    path(r'rec/status', MnistStatusView.as_view(), name='status'),
-    path(r'rec/train', MnistStatusView.as_view(), name='status'),
+    path(r'rec/status', MnistStatusView.as_view()),
+    path(r'rec/train', MnistStatusView.as_view()),
 ]
