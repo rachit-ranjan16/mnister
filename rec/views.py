@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from enum import Enum
 from .learn import DeepLearn
+from .tasks import init_learning
 # Create your views here.
 
 
@@ -20,7 +21,7 @@ state_dict = {
 }
 
 
-class MnistView(View):
+class MnistStatusView(View):
 
     def __init__(self):
         self.state = State.READY
@@ -36,5 +37,16 @@ class MnistView(View):
         return response
 
     def post(self, request):
-        # TODO Add implementation for returning prediction of a given image after running it through the trained model
-        pass
+        tokens = request.path.split('/')
+        if len(tokens) > 3:
+            return HttpResponse(state=400)
+        if tokens[2] == 'train':
+            # POST /rec/train Initiate Training if State is READY or COMPLETED
+            if self.state == State.READY:
+                # Initiate Training
+                # TODO Add Async Processing using Celery
+                init_learning(self.dL)
+                return HttpResponse(state=201)
+
+
+
